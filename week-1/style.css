@@ -1,0 +1,161 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background: rgb(189, 187, 187);
+  height: 80px;
+  width: 100%;
+}
+
+label.logo {
+  line-height: 80px;
+  padding: 0 30px;
+  font-weight: bold;
+}
+
+nav ul {
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  border-radius: 3px;
+  color: black;
+  font-size: 17px;
+  padding: 7px 13px;
+  text-transform: uppercase;
+}
+
+a.active,
+a:hover {
+  background: hsl(205, 33%, 83%);
+  transition: .5s;
+}
+
+.checkbtn {
+  font-size: 30px;
+  color: grey;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+
+/* section msg*/
+section.msg {
+  max-height: 30vh;
+  text-align: center;
+  background: rgb(172, 207, 223);
+}
+
+section>h2 {
+  height: 100%;
+  line-height: 200px;
+}
+
+
+/* section boxes */
+section.boxes {
+  max-height: 30vh;
+  text-align: center;
+}
+
+section.boxes>h3 {
+  padding: 30px;
+}
+
+
+.box {
+  text-align: center;
+  background: grey;
+  margin: 10px;
+  padding: 50px;
+}
+
+
+/* RWD */
+
+@media (min-width: 800px) {
+  .content-box {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .checkbtn {
+    display: block;
+  }
+
+  ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #62809e;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+
+  nav ul li a {
+    font-size: 20px;
+  }
+
+  a:hover,
+  a.active {
+    background: none;
+    color: #0082e6;
+  }
+
+  #check:checked~ul {
+    left: 0;
+  }
+}
+
+.CTA {
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  background: lightblue;
+}
