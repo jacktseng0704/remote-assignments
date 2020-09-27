@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <label for="userInput">Enter a positive integer: </label>
+    <input type="text" id="userInput" style="display: block;">
+    <button onclick="loadDoc()">Click</button>
+    <p></p>
+  </div>
+
+  <script>
+    let inputEl = document.querySelector('input');
+    let p = document.querySelector('p');
+
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET', `/getData?number=10`, true);
+    xhttp.onreadystatechange = function () {
+      p.innerHTML = this.responseText;
+    };
+    xhttp.send();
+
+    // Make HTTP request by AJAX to server
+    function loadDoc() {
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          p.innerHTML = this.responseText;
+          console.log(this);
+        }
+      };
+
+      xhttp.open('GET', `/getData?number=${inputEl.value}`, true);
+      xhttp.send();
+    }
+  </script>
+</body>
+
+</html>
