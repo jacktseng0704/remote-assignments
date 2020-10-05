@@ -1,24 +1,24 @@
-const Nav = () => {
+const Nav = (props) => {
   return (
-    <nav>
+    <nav >
     <div className="title">
       <label className="logo"> Website Title/ Logo</label>
     </div>
-    <Items />
+    <Items show={props.show} showMenu={props.showMenu} closeMenu={props.closeMenu}/>
   </nav>
   );
 }
 
-const Items = () => {
+const Items = (props) => {
   return (
     <div className="items">
       <input type="checkbox" id="check" />
-      <label for="check" className="checkbtn">
+      <label htmlFor="check" className="checkbtn" onClick={props.showMenu}>
         <i className="fas fa-bars"></i>
       </label>
 
-      <ul>
-        <button className="close-btn">X</button>
+      <ul style={{display: props.show}}>
+        <button className="close-btn" onClick={props.closeMenu}>X</button>
 
         <li className="active"><a href="#">item 1</a></li>
         <li><a href="#">item 2</a></li>
@@ -29,17 +29,22 @@ const Items = () => {
   )
 }
 
-const SectionMsg = () => {
-  return (
-    <section className="msg">
-      <h2 id="welcome-msg">Welcome message</h2>
-    </section>
-  )
+
+class SectionMsg extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return  <section className="msg" onClick={this.props.changeMsg}>
+              <h2 id="welcome-msg">{this.props.msg}</h2>
+            </section>
+  }
 }
 
-const Boxes = () => {
+const Boxes = (props) => {
   return (
-    <section className="boxes">
+    <section className={'boxes ' + props.hiddenbox}>
     <h3>Section Title</h3>
 
     <div className="content-box">
@@ -54,47 +59,55 @@ const Boxes = () => {
 }
 
 class Button extends React.Component{
-  // showContent() {
-  //     console.log('點了點了點了')
-  // }
-
   render(){
-      return <input className="CTA" type="button" onClick={this.showContent} 
-              value="Call to Action" />
+    return <input className="CTA" type="button" onClick={this.props.handleClick}
+            value="Call to Action" />
   }
 }
 
 class App extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      hiddenbox: false
-    }
-  }
-  handleClick(){
-    this.setState({hiddenbox: !this.state.hiddenbox})
+  constructor(props){
+    super(props);
+    this.state = {hiddenbox: 'hiddenbox', msg: 'Welcome message', show: ''};
+    this.handleClick = this.handleClick.bind(this);
+    this.changeMsg = this.changeMsg.bind(this);
+    this.showMenu = this.showMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
-  renderButtons(){
-    return <input className="CTA" type="button" onClick={this.handleclick} 
-    value="Call to Action" />
+  handleClick(){
+      this.setState({hiddenbox: ''});
+      // console.log(this.state);
+      // console.log('點了點了點了');
+  }
+
+  changeMsg(){
+    this.setState({msg: "Have a Good Time!"});
+    // console.log(this.state);
+  }
+
+  showMenu(){
+    this.setState({show: 'inline'});
+    // console.log(this.state);
+  }
+
+  closeMenu(){
+    this.setState({show: 'none'});
+    // console.log(this.state);
   }
 
   render() {
     return (
       <div className="App">
-        <Nav />
-        <SectionMsg />
+        <Nav showMenu={this.showMenu} closeMenu={this.closeMenu} show={this.state.show} />
+        <SectionMsg msg={this.state.msg} changeMsg={this.changeMsg}/>
         <Boxes />
-        {this.renderButtons()}
-        <Boxes/>
-  
+        <Button handleClick={this.handleClick} />
+        <Boxes hiddenbox={this.state.hiddenbox}/>
       </div>
     );
   }
 }
-
-
 
 ReactDOM.render(
   <App />, 
